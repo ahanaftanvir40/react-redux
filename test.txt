@@ -1,0 +1,57 @@
+Redux
+-----
+//first we need to create a slice here 'cartSlice'
+//import {createSlice} from 'reduxjs/toolkit'
+
+const cartSlice = createSlice({
+    name:'cart',
+    initialState:{
+        cartList: [],
+        total: 0
+    },
+    reducers:{
+        add(state , action){
+
+        },
+        remove(state, action){
+
+        }
+    }
+})
+
+//then we need to export them
+
+export const {add , remove} = cartSlice.actions; //here we are importing it to use it throughout our project
+
+export const cartReducer = cartSlice.reducer; //here we are exporting it to register it on our store.js
+
+-------------
+
+store.js
+-------
+import {configureStore} from 'reduxjs/toolkit'
+
+
+//here we are exporting to use it in our provider
+
+export const store = configureStore({
+    reducer:{ //here reducer acts as a storage for all our reudcers
+        cartState: cartReducer
+    }
+})
+
+
+//finally in our index.js we import {store} from './store/store.js then import {Provider} from 'react-redux' then wrap our app in <Provider></Provider> then pass the storage
+  like this <Provider store= {store}></Provider>
+
+
+-------------------------------------------------
+//useSelector()
+
+const products = useSelector((state)=> state.cartState.cartList) //it takes a function and here we chose the state in our store inside reducer
+
+//useDispatch
+
+const dispatch = useDispatch()
+
+//we use this when we pass a func/method in button we wrap the method with dispatch
